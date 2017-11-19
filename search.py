@@ -35,6 +35,13 @@ def to_dataframe(url):
     return df
 
 
+def query2df(query):
+    ''' Convert search results from query to a DataFrame.'''
+    url = get_search_url(query)
+    df = to_dataframe(url)
+    return df
+
+
 def select_manga(df):
     ''' Ask user which manga in the search results they wish to download.'''
     pretty_table = tabulate(df[['Title', 'Volumes', 'Type']],
@@ -51,7 +58,6 @@ def search_and_get_link(query):
     ''' Search MangaReader for a given query and return the web link
         for the user selected manga.
     '''
-    url = get_search_url(query)
-    df = to_dataframe(url)
+    df = query2df(query)
     selected_manga_link = select_manga(df)
     return selected_manga_link
